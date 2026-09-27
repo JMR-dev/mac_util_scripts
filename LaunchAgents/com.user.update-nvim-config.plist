@@ -19,6 +19,13 @@
     <dict>
         <key>PATH</key>
         <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <!-- launchd's ssh-agent has no keys loaded, so pull the public repo over HTTPS. -->
+        <key>GIT_CONFIG_COUNT</key>
+        <string>1</string>
+        <key>GIT_CONFIG_KEY_0</key>
+        <string>url.https://github.com/.insteadOf</string>
+        <key>GIT_CONFIG_VALUE_0</key>
+        <string>git@github.com:</string>
     </dict>
     <key>StartCalendarInterval</key>
     <dict>
