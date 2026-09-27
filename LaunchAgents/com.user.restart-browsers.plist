@@ -3,24 +3,63 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.user.homebrew-update</string>
+    <string>com.user.restart-browsers</string>
+    <!--
+        Quits each running browser the way Cmd-Q does, waits up to a minute for
+        it to exit, then reopens it in the background. A browser held open by a
+        quit prompt is left alone. The first run asks for permission to control
+        each browser (System Settings > Privacy & Security > Automation).
+    -->
     <key>ProgramArguments</key>
     <array>
-        <string>/bin/bash</string>
-        <string>-c</string>
-        <string>export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" && brew update && brew upgrade</string>
+        <string>/usr/bin/osascript</string>
+        <string>-e</string>
+        <string>repeat with appName in {"Google Chrome", "Vivaldi", "Floorp"}</string>
+        <string>-e</string>
+        <string>set appName to contents of appName</string>
+        <string>-e</string>
+        <string>if application appName is running then</string>
+        <string>-e</string>
+        <string>log "Restarting " &amp; appName</string>
+        <string>-e</string>
+        <string>ignoring application responses</string>
+        <string>-e</string>
+        <string>tell application appName to quit</string>
+        <string>-e</string>
+        <string>end ignoring</string>
+        <string>-e</string>
+        <string>repeat 60 times</string>
+        <string>-e</string>
+        <string>if application appName is not running then exit repeat</string>
+        <string>-e</string>
+        <string>delay 1</string>
+        <string>-e</string>
+        <string>end repeat</string>
+        <string>-e</string>
+        <string>if application appName is running then</string>
+        <string>-e</string>
+        <string>log appName &amp; " did not quit within 60 seconds; leaving it open."</string>
+        <string>-e</string>
+        <string>else</string>
+        <string>-e</string>
+        <string>do shell script "open -g -a " &amp; quoted form of appName</string>
+        <string>-e</string>
+        <string>end if</string>
+        <string>-e</string>
+        <string>end if</string>
+        <string>-e</string>
+        <string>end repeat</string>
     </array>
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
-        <integer>0</integer>
+        <integer>1</integer>
         <key>Minute</key>
         <integer>0</integer>
     </dict>
     <key>StandardErrorPath</key>
-    <string>/tmp/com.user.homebrew-update.err</string>
+    <string>/tmp/com.user.restart-browsers.err</string>
     <key>StandardOutPath</key>
-    <string>/tmp/com.user.homebrew-update.out</string>
+    <string>/tmp/com.user.restart-browsers.out</string>
 </dict>
 </plist>
-
