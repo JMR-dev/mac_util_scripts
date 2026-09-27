@@ -8,12 +8,18 @@
     <array>
         <string>/bin/bash</string>
         <string>-c</string>
+        <!-- One command per line: bash runs each line separately. -->
         <string>
-        export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
-        pkill nvim || true
-        cd "$HOME/.config/nvim" && git checkout main && git pull origin main
+            pkill nvim
+            cd "$HOME/.config/nvim" || exit 1
+            git checkout main &amp;&amp; git pull origin main
         </string>
     </array>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
