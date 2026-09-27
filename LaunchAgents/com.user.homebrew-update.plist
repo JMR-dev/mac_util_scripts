@@ -8,8 +8,13 @@
     <array>
         <string>/bin/bash</string>
         <string>-c</string>
-        <string>export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH" && brew update && brew upgrade</string>
+        <string>brew update &amp;&amp; brew upgrade</string>
     </array>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    </dict>
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
